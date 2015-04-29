@@ -7,15 +7,7 @@ import java.util.Scanner;
 
 public class NBClassifier extends Classifier {
 	
-	/*
-	 * 
-	 * we need
-	 * probability that you have capital gains, given that you make over 50k (over 50k & CG / CG)
-	 * probability that you do not have capital gains, given that you make over 50k (over 50k & noCG / noCG)
-	 * probability that you have capital gains, given that you do not make over 50k (under50K & CG / CG)
-	 * probability that you do not have capital gains, given that you do not make over 50k (under50K & noCG / noCG)
-	 * 
-	 */
+	
 
 	private String nameFile;
 	private double probG50;
@@ -343,27 +335,27 @@ public class NBClassifier extends Classifier {
 			double[] values = predict(line);
 			// the probability that they make over 50k is the first value, under 50k is the second
 			if (values[0] > values[1]) {
-				System.out.print(">50K");
-				if (line[line.length-1].equals(">50K"))
-					correct++;
-				else
-					wrong++;
+				System.out.println(">50K");
+//				if (line[line.length-1].equals(">50K"))
+//					correct++;
+//				else
+//					wrong++;
 			} else {
-				System.out.print("<=50K");
-				if (line[line.length-1].equals("<=50K"))
-					correct++;
-				else
-					wrong++;
+				System.out.println("<=50K");
+//				//if (line[line.length-1].equals("<=50K"))
+//					correct++;
+//				else
+//					wrong++;
 			}
 			
-			System.out.println("\t " + line[line.length-1]);
+			//System.out.println("\t " + line[line.length-1]);
 		}
 		
-		System.out.println(correct + " correct predictions");
-		System.out.println(wrong + " incorrect predictions");
-		double accuracy = (double) correct / (double) total;
-		accuracy *= 100.0;
-		System.out.println(accuracy + "% accuracy");
+		//System.out.println(correct + " correct predictions");
+		//System.out.println(wrong + " incorrect predictions");
+		//double accuracy = (double) correct / (double) total;
+		//accuracy *= 100.0;
+		//System.out.println(accuracy + "% accuracy");
 		
 
 	}
@@ -410,15 +402,15 @@ public class NBClassifier extends Classifier {
 		double CGfactorUnder50 = (CG == 0) ? probOfCGgivenUnder50 : probOfNoCGgivenUnder50;
 
 		double pOver50 = this.getProbG50()
-				* wCOver50
-				* eOver50
-				* mSOver50
-				* oOver50
-				* relOver50
-				* rOver50
-				* sOver50
-				* nCOver50
-				//* CGfactorOver50
+				* wCOver50 // working class
+				* eOver50 // education
+				* mSOver50 // marital status
+				* oOver50 // occupation
+				* relOver50 // relationship
+				* rOver50 // race
+				* sOver50 // sex
+				//* nCOver50 // native country
+				//* CGfactorOver50 // capital gains
 				;
 		
 		predictions[0] = pOver50;
@@ -431,7 +423,7 @@ public class NBClassifier extends Classifier {
 				* relUnder50
 				* rUnder50
 				* sUnder50
-				* nCUnder50
+				//* nCUnder50
 				//* CGfactorUnder50
 				;
 		
